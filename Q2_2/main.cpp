@@ -11,7 +11,7 @@ string	recurs(string str, string stealPass, string hash, int pos)
 	string	end;
 	string	tmp;
 
-	if (hash == stealPass)
+	if (md5(hash) == stealPass)
 	{
 		return (hash);
 	}
@@ -55,6 +55,9 @@ int		main(int ac, char **av)
 		   
 	// 	 }
 	// }
-	recurs(str, stealPass, hash, 0);
+	if ((hash = recurs(str, stealPass, hash, 0)) != "")
+		cout << "Password found:" << hash << endl;
+	else
+		cout << "Password not found..." << endl;
 	return (0);
 }
