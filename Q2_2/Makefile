@@ -5,7 +5,7 @@ SRCS	=	main.cpp \
 
 OBJS	=	$(SRCS:.cpp=.o)
 
-CFLAGS	=	-W -Werror -Wall -Wextra -std=c++11
+CFLAGS	=	-W -Werror -Wall -Wextra -std=c++11 -pthread
 
 CC	=	g++
 
