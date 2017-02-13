@@ -28,6 +28,7 @@ string	recurs(string str, string stealPass, string hash, int pos, int num)
 	}
 	if (pos > 6)
 		return ("");
+	//	cout << "pos: " << pos << "\t hash:" << hash << "\t stealPass:" << stealPass << endl;
 	for (int i = 0; i < str.length(); ++i)
 	{
 		isFined_mutex.lock();
@@ -63,26 +64,16 @@ int		main(int ac, char **av)
 		stealPass = av[1];
 	else
 	  return (-1);
-	
-	// thread	t1(&threadHandler);
-	// t1.join();
 
 	for (int i = 0; i < str.size(); ++i)
 	{
 		hash = str[i];
 		calc[i] = thread(&recurs, str, stealPass, hash, 0, i);
 	}
-	// thread	t1(&recurs, str, stealPass, "a", 0, 1);
-	// thread	t2(&recurs, str, stealPass, "b", 0, 2);
-	// thread	t3(&recurs, str, stealPass, "c", 0, 3);
 	for (int i = 0; i < str.size(); ++i)
 	{
 		calc[i].join();
 	}
-
-	// t1.join();
-	// t2.join();
-	// t3.join();
 
 	if (Password != "")
 		cout << "Password found:" << Password << endl;
