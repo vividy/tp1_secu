@@ -11,8 +11,8 @@ string	recurs(string str, string stealPass, string hash, int pos)
 	string	end;
 	string	tmp;
 
-	if (pos > 7)
-		return (NULL);
+	if (pos > 8)
+		return ("aa");
 	cout << "pos: " << pos << "\t hash:" << hash << endl;
 	for (int i = 0; i < str.length(); ++i)
 	{
@@ -48,6 +48,6 @@ int		main(int ac, char **av)
 	// 	}
 	// }
 
-	//recurs(str, stealPass, hash, 0);
+	recurs(str, stealPass, hash, 0);
 	return (0);
 }
