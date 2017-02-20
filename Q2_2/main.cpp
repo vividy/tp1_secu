@@ -11,8 +11,8 @@ string	recurs(string str, string stealPass, string hash, int pos)
 	string	end;
 	string	tmp;
 
-	 if (pos > 8)
-	 	return ("c");
+	if (pos > 8)
+		return ("aa");
 	cout << "pos: " << pos << "\t hash:" << hash << endl;
 	for (int i = 0; i < str.length(); ++i)
 	{
