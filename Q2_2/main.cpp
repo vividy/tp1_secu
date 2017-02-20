@@ -21,7 +21,7 @@ string	recurs(string str, string stealPass, string hash, int pos)
 		tmp += str[i];
 		end = recurs(str, stealPass, tmp, pos + 1);
 	}
-	//	if (md5(hash) = stealpass)
+	//    if (md5(hash) = stealpass)
 	return ("b");
 }
 
