@@ -54,9 +54,9 @@ int		main(int ac, char **av)
 	  //   }
 	}
 
-	if ((hash = recurs(str, stealPass, hash, 0)) != "")
-		cout << "Password found:" << hash << endl;
-	else
-		cout << "Password not found..." << endl;
+	// if ((hash = recurs(str, stealPass, hash, 0)) != "")
+	// 	cout << "Password found:" << hash << endl;
+	// else
+	// 	cout << "Password not found..." << endl;
 	return (0);
 }
