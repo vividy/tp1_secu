@@ -34,7 +34,7 @@ string	recurs(string &str, string *stealPass, string &hash, int pos, int &num, i
 
 	if (pos > 6)
 		return ("");
-	for (unsigned int i = pow; i < str.length() && (i + 1) < str.length() ; i = i + 2)
+	for (unsigned int i = pow; i < str.length(); i++)
 	{
 		isFined_mutex.lock();
 		if (isFined == 0)
@@ -77,12 +77,12 @@ int		main(int ac, char **av)
 	{
 		hash = str[i];
 		calc[i] = thread(&threadHandler, str, stealPass, hash, i, 0);
-		calcx[i] = thread(&threadHandler, str, stealPass, hash, i, 1);
+		//calcx[i] = thread(&threadHandler, str, stealPass, hash, i, 1);
 	}
 	for (unsigned int i = 0; i < str.size(); ++i)
 	{
 		calc[i].join();
-		calcx[i].join();
+		//calcx[i].join();
 	}
 
 	return (0);
