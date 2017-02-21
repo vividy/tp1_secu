@@ -5,14 +5,15 @@ SRCS	=	main.cpp \
 
 OBJS	=	$(SRCS:.cpp=.o)
 
-CFLAGS	=	-W -Werror -Wall -Wextra -std=c++11 -pthread
+CXXFLAGS	=	-std=gnu++11 -pthread
+# CXXFLAGS	=	-std=gnu++11 -W -Werror -Wall -Wextra -pthread
 
-CC	=	g++
+CXX	=	c++
 
 RM	=	rm -rf
 
 all:		$(OBJS)
-		$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
+		$(CXX) -o $(NAME) $(OBJS) $(CXXFLAGS)
 
 clean:
 		$(RM) $(OBJS)

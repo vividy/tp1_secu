@@ -4,35 +4,40 @@
 #include <string>
 #include <thread>
 #include <mutex>
+#include <map>
 #include "./md5.h"
 
 using namespace std;
 
-bool	isFined  = false;
-string	Password = "";
+int	isFined  = 5;
 mutex	isFined_mutex;
 
-string	recurs(string str, string stealPass, string hash, int pos, int num)
+string	recurs(string &str, string *stealPass, string &hash, int pos, int &num, int pow)
 {
 	string	end;
 	string	tmp;
 
 //	cout << "num:" << num << "\tpos:" << pos << "\t hash:" << hash << endl;
-	if (md5(hash) == stealPass)
+	for (int i = 0; i < stealPass->size(); ++i)
 	{
-		isFined_mutex.lock();
-		isFined = true;
-		Password = hash;
-		isFined_mutex.unlock();
-		return (hash);
+		if (md5(hash) == stealPass[i])
+		{
+			isFined_mutex.lock();
+			isFined -= 1;
+			isFined_mutex.unlock();
+
+			std::ofstream outfile (stealPass[i] + ".txt");
+			outfile << hash << std::endl;
+			outfile.close();
+		}
 	}
+
 	if (pos > 6)
 		return ("");
-	//	cout << "pos: " << pos << "\t hash:" << hash << "\t stealPass:" << stealPass << endl;
-	for (int i = 0; i < str.length(); ++i)
+	for (unsigned int i = pow; i < str.length() && (i + 1) < str.length() ; i = i + 2)
 	{
 		isFined_mutex.lock();
-		if (isFined == true)
+		if (isFined == 0)
 		{
 			isFined_mutex.unlock();
 			return ("");
@@ -41,43 +46,44 @@ string	recurs(string str, string stealPass, string hash, int pos, int num)
 		tmp.clear();
 		tmp = hash;
 		tmp += str[i];
-		end = recurs(str, stealPass, tmp, pos + 1, num);
+		end = recurs(str, stealPass, tmp, pos + 1, num, pow);
 		if (end != "")
 			return (end);
 	}
 	return ("");
 }
 
-void	threadHandler()
+void	threadHandler(string str, string *stealPass, string hash, int num, int pow)
 {
-	cout << "hello world" << endl;
+	recurs(str, stealPass, hash, 0, num, pow);
 }
 
 int		main(int ac, char **av)
 {
-	string		stealPass;
+	string		stealPass[5];
 	string		str("abcdefghijklmnopqrstuvwxyz0123456789!@#$%&*");
 	string		hash("");
-	thread		calc[46];
+	thread		*calc = new thread[str.size()];
+	thread		*calcx = new thread[str.size()];
+	
+	stealPass[0] = "3692af23f6e25ff3e4f6fc07d1952267";
+	stealPass[1] = "b8a1c63b24574a4b5f041cc6940035e9";
+	stealPass[2] = "eeb7a3effbc7883db281a859bfa8b8f9";
+	stealPass[3] = "15a196696cc990f8796871a1001eb21f";
+	//stealPass[4] = "c2b7443aeba6de69bcba5af76c5bfd5a";
+	stealPass[4] = "ee164042f1ac00236cc00e3a46b37d15";
 
-	if (ac > 1)
-		stealPass = av[1];
-	else
-	  return (-1);
-
-	for (int i = 0; i < str.size(); ++i)
+	for (unsigned int i = 0; i < str.size(); ++i)
 	{
 		hash = str[i];
-		calc[i] = thread(&recurs, str, stealPass, hash, 0, i);
+		calc[i] = thread(&threadHandler, str, stealPass, hash, i, 0);
+		calcx[i] = thread(&threadHandler, str, stealPass, hash, i, 1);
 	}
-	for (int i = 0; i < str.size(); ++i)
+	for (unsigned int i = 0; i < str.size(); ++i)
 	{
 		calc[i].join();
+		calcx[i].join();
 	}
 
-	if (Password != "")
-		cout << "Password found:" << Password << endl;
-	else
-		cout << "Password not found..." << endl;
 	return (0);
 }
