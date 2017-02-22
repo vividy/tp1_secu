@@ -29,6 +29,7 @@ void	recurs(string &str, string *stealPass, string &hash, int pos, int &num, int
 			std::ofstream outfile (stealPass[i] + ".txt");
 			outfile << hash << std::endl;
 			outfile.close();
+			cout << "password fined:" << hash << "\t" << stealPass[i] << endl;
 		}
 	}
 
