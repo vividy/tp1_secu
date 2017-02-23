@@ -33,9 +33,9 @@ void	recurs(string &str, string *stealPass, string &hash, int pos, int &num, int
 		}
 	}
 
-	if (pos > 6)
+	if (pos > 5)
 		return ;
-	else if (pos < 4)
+	else if (pos < 3)
 		cout << "thread no: " << num << "\thash actual: " << hash << endl;
 	for (unsigned int i = pow; i < 43; i++)
 	{
@@ -74,12 +74,12 @@ int		main(int ac, char **av)
 	// stealPass[4] = "a98a747db71f95aa57506d2aa7f07e50";
 	stealPass[4] = "ee164042f1ac00236cc00e3a46b37d15";
 
-	for (unsigned int i = 0; i < str.size(); ++i)
+	for (unsigned int i = 0; i < 20; ++i)
 	{
 		hash = str[i];
 		calc[i] = thread(&threadHandler, str, stealPass, hash, i, 0);
 	}
-	for (unsigned int i = 0; i < str.size(); ++i)
+	for (unsigned int i = 0; i < 20; ++i)
 	{
 		calc[i].join();
 	}
