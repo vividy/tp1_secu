@@ -28,4 +28,4 @@ password: m@l@d	       hash: eeb7a3effbc7883db281a859bfa8b8f9
 Q3:Le choix d'un mot de passe doit se faire de façon réfléchie et pertinente.
 
 Générer un mot de passe aléatoire permet d'éviter q'un décryptage avec dictionnaire le trouve facilement, pour l'attaque par énumérations on voit que le temps de recherche suplémentaire pour un caractère est éxponentielle.
-Il faut choisir son mot de passe avec taille suffisament grande pour décourager le décryptage de celui-ci en fonction de la donnée a sécurisé. 
+Il faut choisir son mot de passe avec taille suffisament grande mininum 8 caractères pour pour décourager le décryptage de celui-ci en fonction de la donnée a sécurisé. 

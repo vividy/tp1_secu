@@ -33,10 +33,10 @@ void	recurs(string &str, string *stealPass, string &hash, int pos, int &num, int
 		}
 	}
 
-	if (pos > 5)
+	if (pos > 6)
 		return ;
 	else if (pos < 3)
-		cout << "thread no: " << num << "\thash actual: " << hash << endl;
+	  cout << "thread no: " << num << "\thash actual: " << hash <<  endl;
 	for (unsigned int i = pow; i < 43; i++)
 	{
 		if (isFined_mutex.try_lock() == true)
@@ -57,7 +57,7 @@ void	recurs(string &str, string *stealPass, string &hash, int pos, int &num, int
 
 void	threadHandler(string str, string *stealPass, string hash, int num, int pow)
 {
-	recurs(str, stealPass, hash, 0, num, pow);
+  recurs(str, stealPass, hash, 0, num, pow);
 }
 
 int		main(int ac, char **av)
@@ -71,18 +71,17 @@ int		main(int ac, char **av)
 	stealPass[1] = "b8a1c63b24574a4b5f041cc6940035e9";
 	stealPass[2] = "eeb7a3effbc7883db281a859bfa8b8f9";
 	stealPass[3] = "15a196696cc990f8796871a1001eb21f";
-	// stealPass[4] = "a98a747db71f95aa57506d2aa7f07e50";
-	stealPass[4] = "ee164042f1ac00236cc00e3a46b37d15";
-
-	for (unsigned int i = 0; i < 20; ++i)
-	{
-		hash = str[i];
-		calc[i] = thread(&threadHandler, str, stealPass, hash, i, 0);
-	}
-	for (unsigned int i = 0; i < 20; ++i)
-	{
-		calc[i].join();
-	}
-
+	stealPass[4] = "a98a747db71f95aa57506d2aa7f07e50";
+	//stealPass[4] = "ee164042f1ac00236cc00e3a46b37d15";
+	
+	for (unsigned int i = 0; i < str.size(); ++i)
+	  {
+	    hash = str[i];
+	    calc[i] = thread(&threadHandler, str, stealPass, hash, i, 0);
+	  }
+	for (unsigned int i = 0; i < str.size(); ++i)
+	  {
+	    calc[i].join();
+	  }
 	return (0);
 }
